@@ -1,24 +1,17 @@
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import LogInPage from "./pages/login";
-import MainPage from "./pages/main/MainPage";
-
-const apiKey = process.env.REACT_APP_API_KEY;
-const baseURL = `https://www.omdbapi.com/?i=tt3896198&apikey=${apiKey}`;
+import MainPage from "./pages/main";
 
 function App() {
   const [user, setUser] = useState<null | string>(null);
-  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
-  const [titleFilter, setTitleFilter] = useState("");
-  const [page, setPage] = useState(0); // TODO does API start from 0 or 1?
-
-  const searchByTitle = async (page: number) =>
-    await fetch(`${baseURL}&s="${titleFilter}"&page=${page}`);
 
   const onLogin = (user: string) => setUser(user);
 
+  // TODO check if user is logged in
+  // TODO get user's favorited films
   useEffect(() => {
     //    const fetchData = async () => {
     //      try {
@@ -42,7 +35,7 @@ function App() {
   }, []);
 
   return (
-    <div className="h-full bg-slate-800">
+    <div className="min-h-screen bg-slate-800">
       <Routes>
         <Route
           path="/"
