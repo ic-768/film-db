@@ -6,7 +6,7 @@ const SignOutButton = () => {
 
   const onSignOut = () => {
     setUser(undefined);
-    localStorage.removeItem("user");
+    localStorage.removeItem("username");
   };
 
   return (

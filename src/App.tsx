@@ -3,15 +3,16 @@ import { Route, Routes } from "react-router-dom";
 import LogInPage from "./pages/login";
 import MainPage from "./pages/main";
 import { UserContext } from "./context/user";
+import { User } from "./common";
 
 function App() {
-  const [user, setUser] = useState<undefined | null | string>(undefined);
+  const [user, setUser] = useState<undefined | null | User>(undefined);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  const onLogin = (user: string) => {
-    setUser(user);
-    localStorage.setItem("user", user);
+  const onLogin = (user: User["username"]) => {
+    setUser({ username: user, favorites: [] });
+    localStorage.setItem("username", user);
   };
 
   // TODO get user's favorited films
@@ -38,9 +39,13 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const existingUser = localStorage.getItem("user");
+    const existingUser = localStorage.getItem("username");
     if (existingUser) {
-      setUser(existingUser);
+      setUser({
+        username: existingUser,
+        // TODO handle favorites
+        favorites: [],
+      });
     }
   }, []);
 

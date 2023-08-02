@@ -5,3 +5,8 @@ export type Movie = {
   Type: string;
   Poster: string;
 };
+
+export type User = {
+  username: string;
+  favorites: Movie["imdbID"][];
+};
