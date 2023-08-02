@@ -3,6 +3,7 @@ import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { baseURL, Movie } from "../../common";
 import MovieCard from "../../components/FilmCard/FilmCard";
 import SearchPanel from "../../components/SearchPanel";
+import SignOutButton from "../../components/SignOutButton";
 
 const MainPage = () => {
   const [titleFilter, setTitleFilter] = useState("");
@@ -21,7 +22,6 @@ const MainPage = () => {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      console.log(data);
       setMovies(data.Search);
     } catch (error) {
       if (error instanceof Error) {
@@ -37,6 +37,7 @@ const MainPage = () => {
 
   return (
     <div>
+      <SignOutButton />
       <form onSubmit={searchByTitle}>
         <SearchPanel filter={titleFilter} onChangeFilter={updateFilter} />
       </form>

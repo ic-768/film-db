@@ -2,15 +2,18 @@ import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import LogInPage from "./pages/login";
 import MainPage from "./pages/main";
+import { UserContext } from "./context/user";
 
 function App() {
-  const [user, setUser] = useState<null | string>(null);
+  const [user, setUser] = useState<undefined | null | string>(undefined);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  const onLogin = (user: string) => setUser(user);
+  const onLogin = (user: string) => {
+    setUser(user);
+    localStorage.setItem("user", user);
+  };
 
-  // TODO check if user is logged in
   // TODO get user's favorited films
   useEffect(() => {
     //    const fetchData = async () => {
@@ -34,15 +37,24 @@ function App() {
     //    fetchData();
   }, []);
 
+  useEffect(() => {
+    const existingUser = localStorage.getItem("user");
+    if (existingUser) {
+      setUser(existingUser);
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-slate-800">
-      <Routes>
-        <Route
-          path="/"
-          element={user ? <MainPage /> : <LogInPage onLogin={onLogin} />}
-        />
-        <Route path="/test" element={<div>test</div>} />
-      </Routes>
+      <UserContext.Provider value={[user, setUser]}>
+        <Routes>
+          <Route
+            path="/"
+            element={user ? <MainPage /> : <LogInPage onLogin={onLogin} />}
+          />
+          <Route path="/test" element={<div>test</div>} />
+        </Routes>
+      </UserContext.Provider>
     </div>
   );
 }

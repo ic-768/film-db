@@ -44,7 +44,7 @@ const LogInPage = ({ onLogin }: LogInPageProps) => {
         hidden={true}
         placeholder="myPassword123!"
       />
-      <LoginButton text="Log In" />
+      <LoginButton />
     </form>
   );
 };
