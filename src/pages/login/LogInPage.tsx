@@ -1,6 +1,7 @@
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
-import { ChangeEventHandler, useState } from "react";
+import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import CredentialPanel from "../../components/CredentialPanel";
+import LoginButton from "../../components/LoginButton";
 
 interface LogInPageProps {
   onLogin: (user: string) => void;
@@ -16,27 +17,35 @@ const LogInPage = ({ onLogin }: LogInPageProps) => {
   const updatePassword: ChangeEventHandler<HTMLInputElement> = (e) =>
     setPassword(e.target?.value);
 
+  const logIn: FormEventHandler = (e) => {
+    e.preventDefault();
+    onLogin(username);
+  };
+
   return (
-    <div className="flex flex-col bg-slate-600 p-6 rounded-lg w-2/4 absolute mx-auto inset-x-0 top-24">
+    <form
+      onSubmit={logIn}
+      className="flex flex-col gap-6 bg-slate-600 p-8 rounded-lg w-2/4 absolute mx-auto inset-x-0 top-24"
+    >
       <CredentialPanel
-        label="username"
+        label="Username"
         id="username"
         text={username}
         setText={updateUsername}
         icon={faUser}
+        placeholder="John Snow"
       />
       <CredentialPanel
-        label="password"
+        label="Password"
         id="password"
         text={password}
         setText={updatePassword}
         icon={faLock}
         hidden={true}
+        placeholder="myPassword123!"
       />
-      <button className="text-white" onClick={() => onLogin(username)}>
-        Login
-      </button>
-    </div>
+      <LoginButton text="Log In" />
+    </form>
   );
 };
 

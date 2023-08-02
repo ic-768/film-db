@@ -10,6 +10,7 @@ interface CredentialPanelProps {
   setText: ChangeEventHandler<HTMLInputElement>;
   icon: IconProp;
   hidden?: boolean;
+  placeholder?: string;
 }
 
 const CredentialPanel = ({
@@ -19,6 +20,7 @@ const CredentialPanel = ({
   setText,
   icon,
   hidden = false,
+  placeholder,
 }: CredentialPanelProps) => (
   <div className="flex flex-col p-8 border border-teal-600 rounded-lg shadow-sm bg-neutral-900 shadow-cyan-600/50 focus-within:shadow-emerald-500/50 focus-within:shadow-md transition-all">
     <label className="text-lg" htmlFor={id}>
@@ -30,6 +32,7 @@ const CredentialPanel = ({
       text={text}
       setText={setText}
       icon={icon}
+      placeholder={placeholder}
     />
   </div>
 );
