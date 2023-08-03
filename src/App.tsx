@@ -10,12 +10,19 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
+  const getFavorites = () => {
+    const favoritesString = localStorage.getItem("favorites");
+    const favorites: string[] = favoritesString
+      ? JSON.parse(favoritesString)
+      : [];
+    return favorites;
+  };
+
   const onLogin = (user: User["username"]) => {
-    setUser({ username: user, favorites: [] });
+    setUser({ username: user, favorites: getFavorites() });
     localStorage.setItem("username", user);
   };
 
-  // TODO get user's favorited films
   useEffect(() => {
     //    const fetchData = async () => {
     //      try {
@@ -40,11 +47,11 @@ function App() {
 
   useEffect(() => {
     const existingUser = localStorage.getItem("username");
+
     if (existingUser) {
       setUser({
         username: existingUser,
-        // TODO handle favorites
-        favorites: [],
+        favorites: getFavorites(),
       });
     }
   }, []);

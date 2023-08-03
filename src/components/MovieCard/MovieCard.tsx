@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
-import { Movie } from "../../common";
+import { Movie, User } from "../../common";
+import { UserContext } from "../../context/user";
 import FavoriteButton from "../FavoriteButton";
 
 // lowercase the movie API results for consistency
@@ -20,6 +21,7 @@ const MovieCard = ({
   isFavorited = false,
 }: MovieCardProps) => {
   const [hasLoaded, setHasLoaded] = useState(false);
+  const [user, setUser] = useContext(UserContext);
 
   // if poster doesn't exist, don't try to wait for the image to load
   const visibilityClasses = `${
@@ -28,14 +30,29 @@ const MovieCard = ({
 
   const onLoad = () => setHasLoaded(true);
 
+  const updateFavorites = (favorites: User["favorites"]) => {
+    setUser({ ...user!, favorites });
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  };
+
+  const onFavorite = (id: Movie["imdbID"]) => {
+    const updatedFavorites = user!.favorites.concat(id);
+    updateFavorites(updatedFavorites);
+  };
+
+  const onUnfavorite = (id: Movie["imdbID"]) => {
+    const updatedFavorites = user!.favorites.filter((i) => i === id);
+    updateFavorites(updatedFavorites);
+  };
+
   return (
     <li
       className={`${visibilityClasses} relative flex flex-col items-center rounded-xl p-2 border border-slate-200 bg-slate-600 `}
     >
       <FavoriteButton
         isFavorite={isFavorited}
-        handleFavorite={() => {}}
-        handleUnfavorite={() => {}}
+        handleFavorite={() => onFavorite(id)}
+        handleUnfavorite={() => onUnfavorite(id)}
       />
       <a href={`https://www.imdb.com/title/${id}`}>
         <img alt={title} src={poster} onLoad={onLoad} />
