@@ -41,7 +41,7 @@ const MovieCard = ({
   };
 
   const onUnfavorite = (id: Movie["imdbID"]) => {
-    const updatedFavorites = user!.favorites.filter((i) => i === id);
+    const updatedFavorites = user!.favorites.filter((i) => i !== id);
     updateFavorites(updatedFavorites);
   };
 

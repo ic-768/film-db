@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
+
 import LogInPage from "./pages/login";
 import MainPage from "./pages/main";
 import { UserContext } from "./context/user";
@@ -22,28 +23,6 @@ function App() {
     setUser({ username: user, favorites: getFavorites() });
     localStorage.setItem("username", user);
   };
-
-  useEffect(() => {
-    //    const fetchData = async () => {
-    //      try {
-    //        const response = await fetch(`${baseURL}&s="${titleFilter}"&page=1`);
-    //        if (!response.ok) {
-    //          throw new Error("Network response was not ok");
-    //        }
-    //        const data = await response.json();
-    //        console.log(data);
-    //        setData(data);
-    //        setLoading(false);
-    //      } catch (error) {
-    //        if (error instanceof Error) {
-    //          setError(error);
-    //        }
-    //        setLoading(false);
-    //      }
-    //    };
-    //
-    //    fetchData();
-  }, []);
 
   useEffect(() => {
     const existingUser = localStorage.getItem("username");
