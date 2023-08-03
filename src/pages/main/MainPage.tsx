@@ -2,6 +2,7 @@ import { ChangeEventHandler, FormEventHandler, useState } from "react";
 
 import { baseURL, Movie } from "../../common";
 import MovieCard from "../../components/MovieCard/MovieCard";
+import PageButton from "../../components/PageButton";
 import SearchPanel from "../../components/SearchPanel";
 import SignOutButton from "../../components/SignOutButton";
 
@@ -45,10 +46,12 @@ const MainPage = () => {
   return (
     <div>
       <SignOutButton />
+      <PageButton orientation="forward" />
+      <PageButton orientation="backward" />
       <form onSubmit={searchByTitle}>
         <SearchPanel filter={titleFilter} onChangeFilter={updateFilter} />
       </form>
-      <ul className="grid grid-cols-1 gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3 p-6">
+      <ul className="grid grid-cols-1 gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3 py-6 px-28">
         {movies.map((m) => (
           <MovieCard
             key={m.imdbID}
