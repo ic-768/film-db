@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { Movie } from "../../common";
 import FavoriteButton from "../FavoriteButton";
 
@@ -16,15 +18,32 @@ const MovieCard = ({
   id,
   poster,
   isFavorited = false,
-}: MovieCardProps) => (
-  <li className="relative flex flex-col items-center rounded-xl p-2 border border-slate-200 bg-slate-600">
-    <FavoriteButton handleFavorite={() => {}} handleUnfavorite={() => {}} />
-    <a href={`https://www.imdb.com/title/${id}`}>
-      <img alt={title} src={poster} />
-      {title}
-      {year}
-    </a>
-  </li>
-);
+}: MovieCardProps) => {
+  const [hasLoaded, setHasLoaded] = useState(false);
+
+  // if poster doesn't exist, don't try to wait for the image to load
+  const visibilityClasses = `${
+    poster === "N/A" || hasLoaded ? "block" : "hidden"
+  }`;
+
+  const onLoad = () => setHasLoaded(true);
+
+  return (
+    <li
+      className={`${visibilityClasses} relative flex flex-col items-center rounded-xl p-2 border border-slate-200 bg-slate-600 `}
+    >
+      <FavoriteButton
+        isFavorite={isFavorited}
+        handleFavorite={() => {}}
+        handleUnfavorite={() => {}}
+      />
+      <a href={`https://www.imdb.com/title/${id}`}>
+        <img alt={title} src={poster} onLoad={onLoad} />
+        {title}
+        {year}
+      </a>
+    </li>
+  );
+};
 
 export default MovieCard;

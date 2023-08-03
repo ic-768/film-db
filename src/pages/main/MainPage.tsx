@@ -15,7 +15,7 @@ const MainPage = () => {
   const updateFilter: ChangeEventHandler<HTMLInputElement> = (e) =>
     setTitleFilter(e.target.value);
 
-  const fetchMovies = async () => {
+  const fetchMovies = async (page = 1) => {
     if (!titleFilter) return;
 
     try {
@@ -47,13 +47,13 @@ const MainPage = () => {
   };
 
   const incPage = () => {
-    setPage(page + 1);
-    fetchMovies();
+    fetchMovies(page + 1);
+    setPage((p) => p + 1);
   };
 
   const decPage = () => {
-    setPage(page - 1);
-    fetchMovies();
+    fetchMovies(page - 1);
+    setPage((p) => p - 1);
   };
 
   const FilmButtons = () =>
