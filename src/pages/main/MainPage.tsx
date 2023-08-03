@@ -9,11 +9,13 @@ import SignOutButton from "../../components/SignOutButton";
 const MainPage = () => {
   const [titleFilter, setTitleFilter] = useState("");
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [totalMovieResults, setTotalMovieResults] = useState(0);
+  const [page, setPage] = useState(1);
 
   const updateFilter: ChangeEventHandler<HTMLInputElement> = (e) =>
     setTitleFilter(e.target.value);
 
-  const fetchMovies = async (page = 1) => {
+  const fetchMovies = async () => {
     if (!titleFilter) return;
 
     try {
@@ -29,6 +31,7 @@ const MainPage = () => {
         // TODO show error
       } else {
         setMovies(data.Search);
+        setTotalMovieResults(data.totalResults);
       }
       console.log(data);
     } catch (error) {
@@ -43,11 +46,32 @@ const MainPage = () => {
     fetchMovies();
   };
 
+  const incPage = () => {
+    setPage(page + 1);
+    fetchMovies();
+  };
+
+  const decPage = () => {
+    setPage(page - 1);
+    fetchMovies();
+  };
+
+  const FilmButtons = () =>
+    movies.length ? (
+      <>
+        {page !== 1 ? (
+          <PageButton onClick={decPage} orientation="backward" />
+        ) : null}
+        {page * 10 <= totalMovieResults ? (
+          <PageButton onClick={incPage} />
+        ) : null}
+      </>
+    ) : null;
+
   return (
     <div>
       <SignOutButton />
-      <PageButton orientation="forward" />
-      <PageButton orientation="backward" />
+      <FilmButtons />
       <form onSubmit={searchByTitle}>
         <SearchPanel filter={titleFilter} onChangeFilter={updateFilter} />
       </form>
