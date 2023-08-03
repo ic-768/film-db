@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Movie, User } from "../../common";
 import { UserContext } from "../../context/user";
@@ -22,6 +23,7 @@ const MovieCard = ({
 }: MovieCardProps) => {
   const [hasLoaded, setHasLoaded] = useState(false);
   const [user, setUser] = useContext(UserContext);
+  const navigate = useNavigate();
 
   // if poster doesn't exist, don't try to wait for the image to load
   const visibilityClasses = `${
@@ -45,6 +47,8 @@ const MovieCard = ({
     updateFavorites(updatedFavorites);
   };
 
+  const onClickMovie = () => navigate(id);
+
   return (
     <li
       className={`${visibilityClasses} relative flex flex-col items-center rounded-xl p-2 border border-slate-200 bg-slate-600 `}
@@ -54,11 +58,11 @@ const MovieCard = ({
         handleFavorite={() => onFavorite(id)}
         handleUnfavorite={() => onUnfavorite(id)}
       />
-      <a href={`https://www.imdb.com/title/${id}`}>
+      <button onClick={onClickMovie} className="flex flex-col items-center">
         <img alt={title} src={poster} onLoad={onLoad} />
-        {title}
-        {year}
-      </a>
+        <span>{title}</span>
+        <span>{year}</span>
+      </button>
     </li>
   );
 };

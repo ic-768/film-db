@@ -5,6 +5,7 @@ import LogInPage from "./pages/login";
 import MainPage from "./pages/main";
 import { UserContext } from "./context/user";
 import { User } from "./common";
+import MoviePage from "./pages/movie";
 
 function App() {
   const [user, setUser] = useState<undefined | null | User>(undefined);
@@ -43,7 +44,7 @@ function App() {
             path="/"
             element={user ? <MainPage /> : <LogInPage onLogin={onLogin} />}
           />
-          <Route path="/test" element={<div>test</div>} />
+          <Route path="/:id" element={<MoviePage />} />
         </Routes>
       </UserContext.Provider>
     </div>

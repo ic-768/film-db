@@ -4,12 +4,10 @@ import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 
 interface FavoriteButtonProps {
   isFavorite?: boolean;
-  isFavoriting?: boolean;
   handleUnfavorite: () => void;
   handleFavorite: () => void;
 }
 const FavoriteButton = ({
-  isFavoriting,
   isFavorite,
   handleUnfavorite,
   handleFavorite,
@@ -24,9 +22,7 @@ const FavoriteButton = ({
       cursor="pointer"
       onClick={onClick}
       icon={icon}
-      className={`p-2 bg-white rounded-full absolute top-10 right-10 text-6lg text-red-800 hover:text-red-600 hover:opacity-100 ${color} ${
-        isFavoriting ? "animate-spin opacity-100" : "opacity-75 "
-      } transition-all`}
+      className={`p-2 bg-white rounded-full absolute top-10 right-10 text-6lg text-red-800 hover:text-red-600 hover:opacity-100 ${color} transition-all`}
     />
   );
 };
