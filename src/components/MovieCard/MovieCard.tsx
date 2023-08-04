@@ -1,16 +1,16 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Movie, User } from "../../common";
+import { BasicMovieDetails, User } from "../../common";
 import { UserContext } from "../../context/user";
 import FavoriteButton from "../FavoriteButton";
 
 // lowercase the movie API results for consistency
 interface MovieCardProps {
-  title: Movie["Title"];
-  year: Movie["Year"];
-  id: Movie["imdbID"];
-  poster: Movie["Poster"];
+  title: BasicMovieDetails["Title"];
+  year: BasicMovieDetails["Year"];
+  id: BasicMovieDetails["imdbID"];
+  poster: BasicMovieDetails["Poster"];
   isFavorited?: boolean;
 }
 
@@ -37,12 +37,12 @@ const MovieCard = ({
     localStorage.setItem("favorites", JSON.stringify(favorites));
   };
 
-  const onFavorite = (id: Movie["imdbID"]) => {
+  const onFavorite = (id: BasicMovieDetails["imdbID"]) => {
     const updatedFavorites = user!.favorites.concat(id);
     updateFavorites(updatedFavorites);
   };
 
-  const onUnfavorite = (id: Movie["imdbID"]) => {
+  const onUnfavorite = (id: BasicMovieDetails["imdbID"]) => {
     const updatedFavorites = user!.favorites.filter((i) => i !== id);
     updateFavorites(updatedFavorites);
   };

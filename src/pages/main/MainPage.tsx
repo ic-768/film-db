@@ -5,7 +5,7 @@ import {
   useState,
 } from "react";
 
-import { baseURL, Movie } from "../../common";
+import { baseURL, BasicMovieDetails } from "../../common";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import PageButton from "../../components/PageButton";
 import SearchPanel from "../../components/SearchPanel";
@@ -14,7 +14,7 @@ import { UserContext } from "../../context/user";
 
 const MainPage = () => {
   const [titleFilter, setTitleFilter] = useState("");
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const [movies, setMovies] = useState<BasicMovieDetails[]>([]);
   const [totalMovieResults, setTotalMovieResults] = useState(0);
   const [page, setPage] = useState(1);
 
