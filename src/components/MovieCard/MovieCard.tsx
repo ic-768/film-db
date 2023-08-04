@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { BasicMovieDetails, User } from "../../common";
-import { UserContext } from "../../context/user";
+import { BasicMovieDetails } from "../../common";
+import { useFavorite } from "../../hooks/useFavorite";
 import FavoriteButton from "../FavoriteButton";
 
 // lowercase the movie API results for consistency
@@ -11,18 +11,12 @@ interface MovieCardProps {
   year: BasicMovieDetails["Year"];
   id: BasicMovieDetails["imdbID"];
   poster: BasicMovieDetails["Poster"];
-  isFavorited?: boolean;
 }
 
-const MovieCard = ({
-  title,
-  year,
-  id,
-  poster,
-  isFavorited = false,
-}: MovieCardProps) => {
+const MovieCard = ({ title, year, id, poster }: MovieCardProps) => {
   const [hasLoaded, setHasLoaded] = useState(false);
-  const [user, setUser] = useContext(UserContext);
+  const [onFavorite, onUnfavorite, isFavorited] = useFavorite(id);
+
   const navigate = useNavigate();
 
   // if poster doesn't exist, don't try to wait for the image to load
@@ -31,22 +25,6 @@ const MovieCard = ({
   }`;
 
   const onLoad = () => setHasLoaded(true);
-
-  const updateFavorites = (favorites: User["favorites"]) => {
-    setUser({ ...user!, favorites });
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  };
-
-  const onFavorite = (id: BasicMovieDetails["imdbID"]) => {
-    const updatedFavorites = user!.favorites.concat(id);
-    updateFavorites(updatedFavorites);
-  };
-
-  const onUnfavorite = (id: BasicMovieDetails["imdbID"]) => {
-    const updatedFavorites = user!.favorites.filter((i) => i !== id);
-    updateFavorites(updatedFavorites);
-  };
-
   const onClickMovie = () => navigate(id);
 
   return (
@@ -55,8 +33,8 @@ const MovieCard = ({
     >
       <FavoriteButton
         isFavorite={isFavorited}
-        handleFavorite={() => onFavorite(id)}
-        handleUnfavorite={() => onUnfavorite(id)}
+        handleFavorite={onFavorite}
+        handleUnfavorite={onUnfavorite}
       />
       <button onClick={onClickMovie} className="flex flex-col items-center">
         <img alt={title} src={poster} onLoad={onLoad} />

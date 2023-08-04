@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import { baseURL, FullMovieDetails } from "../../common";
+import FavoriteButton from "../../components/FavoriteButton";
+import { useFavorite } from "../../hooks/useFavorite";
 
 const MoviePage = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState<FullMovieDetails | undefined>();
+
+  const [onFavorite, onUnFavorite, isFavorite] = useFavorite(id);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -37,7 +42,12 @@ const MoviePage = () => {
 
   return movie ? (
     <div className="container mx-auto p-4">
-      <div className="max-w-3xl mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
+      <div className="max-w-3xl mx-auto bg-white rounded-lg relative">
+        <FavoriteButton
+          isFavorite={isFavorite}
+          handleFavorite={onFavorite}
+          handleUnfavorite={onUnFavorite}
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <img className="w-full" src={movie.Poster} alt={movie.Title} />
           <div className="px-6 py-4">

@@ -1,24 +1,16 @@
-import {
-  ChangeEventHandler,
-  FormEventHandler,
-  useContext,
-  useState,
-} from "react";
+import { ChangeEventHandler, FormEventHandler, useState } from "react";
 
 import { baseURL, BasicMovieDetails } from "../../common";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import PageButton from "../../components/PageButton";
 import SearchPanel from "../../components/SearchPanel";
 import SignOutButton from "../../components/SignOutButton";
-import { UserContext } from "../../context/user";
 
 const MainPage = () => {
   const [titleFilter, setTitleFilter] = useState("");
   const [movies, setMovies] = useState<BasicMovieDetails[]>([]);
   const [totalMovieResults, setTotalMovieResults] = useState(0);
   const [page, setPage] = useState(1);
-
-  const [user] = useContext(UserContext);
 
   const updateFilter: ChangeEventHandler<HTMLInputElement> = (e) =>
     setTitleFilter(e.target.value);
@@ -91,7 +83,6 @@ const MainPage = () => {
             year={m.Year}
             id={m.imdbID}
             poster={m.Poster}
-            isFavorited={user?.favorites.includes(m.imdbID)}
           />
         ))}
       </ul>
