@@ -3,12 +3,12 @@ import { useParams } from "react-router-dom";
 
 import { baseURL, FullMovieDetails } from "../../common";
 import FavoriteButton from "../../components/FavoriteButton";
+import HomeButton from "../../components/HomeButton";
 import { useFavorite } from "../../hooks/useFavorite";
 
 const MoviePage = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState<FullMovieDetails | undefined>();
-
   const [onFavorite, onUnFavorite, isFavorite] = useFavorite(id);
 
   useEffect(() => {
@@ -48,6 +48,7 @@ const MoviePage = () => {
 
   return movie ? (
     <div className="container mx-auto p-4">
+      <HomeButton />
       <div className="max-w-3xl mx-auto bg-white rounded-lg relative">
         <FavoriteButton
           isFavorite={isFavorite}
