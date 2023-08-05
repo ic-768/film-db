@@ -1,57 +1,26 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { baseURL, FullMovieDetails } from "../../common";
 import FavoriteButton from "../../components/FavoriteButton";
 import HomeButton from "../../components/HomeButton";
-import { LoaderContext } from "../../context/loader";
-import { NotificationContext } from "../../context/notification";
-import { useFavorite } from "../../hooks/useFavorite";
+import { useAsyncAction, useFavorite } from "../../hooks";
 
 const MoviePage = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState<FullMovieDetails | undefined>();
 
-  const [_loader, setLoader] = useContext(LoaderContext);
-  const [_notification, setNotification] = useContext(NotificationContext);
-
   const [onFavorite, onUnFavorite, isFavorite] = useFavorite(movie?.Title!, id);
+  const getMovie = useAsyncAction();
 
   useEffect(() => {
     const fetchMovie = async () => {
       if (!id) return;
 
-      setLoader(true);
-
-      try {
-        const response = await fetch(`${baseURL}&i=${id}`);
-        if (!response.ok) {
-          setNotification({
-            type: "error",
-            message: "Something went wrong with the network!",
-          });
-        }
-        const data = await response.json();
-        if (data.Error) {
-          setNotification({
-            type: "error",
-            message: "There was something wrong with the server response!",
-          });
-        } else {
-          setMovie(data);
-          console.log(data);
-        }
-        console.log(data);
-      } catch (error) {
-        if (error instanceof Error) {
-          setNotification({ type: "error", message: "Something went wrong!" });
-        }
-      }
-      setLoader(false);
+      getMovie(`${baseURL}&i=${id}`, "Something went wrong", setMovie);
     };
-
     fetchMovie();
-  }, [id, setLoader, setNotification]);
+  }, []);
 
   const MovieDetail = ({ name, detail }: { name: string; detail: string }) => (
     <p className="text-gray-600 mb-4">
