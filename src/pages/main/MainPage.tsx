@@ -26,10 +26,12 @@ const MainPage = () => {
   const updateFilter: ChangeEventHandler<HTMLInputElement> = (e) =>
     setTitleFilter(e.target.value);
 
+  // on first render => check url params to load the referenced movie
   useEffect(() => {
     if (!urlTitle) return;
+    if (urlPage) setPage(Number(urlPage));
 
-    let url = `${baseURL}&s="${urlTitle}"&page=${urlPage}`;
+    let url = `${baseURL}&s="${urlTitle}"&page=${urlPage || page}`;
     if (urlYear) {
       url += `&y=${urlYear}`;
     }
@@ -41,11 +43,13 @@ const MainPage = () => {
     getMovies(url, "something went wrong", onFetchMovies);
   }, []);
 
+  // set state after api fetch
   const onFetchMovies = (data: any) => {
     setMovies(data.Search);
     setTotalMovieResults(data.totalResults);
   };
 
+  // handle api call and navigate to url
   const fetchMovies = async (page = 1) => {
     const title = titleFilter || urlTitle;
     if (!title) return;
@@ -63,14 +67,18 @@ const MainPage = () => {
     fetchMovies();
   };
 
+  const updatePage = (page: number) => {
+    fetchMovies(page);
+    setPage(page);
+    navigate(`/${urlTitle}/${page}`);
+  };
+
   const incPage = () => {
-    fetchMovies(page + 1);
-    setPage((p) => p + 1);
+    updatePage(page + 1);
   };
 
   const decPage = () => {
-    fetchMovies(page - 1);
-    setPage((p) => p - 1);
+    updatePage(page - 1);
   };
 
   const FilmButtons = () =>
