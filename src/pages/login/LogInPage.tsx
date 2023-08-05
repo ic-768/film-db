@@ -1,15 +1,22 @@
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
-import { ChangeEventHandler, FormEventHandler, useState } from "react";
+import {
+  ChangeEventHandler,
+  FormEventHandler,
+  useContext,
+  useState,
+} from "react";
+import { getFavorites, User } from "../../common";
 import CredentialPanel from "../../components/CredentialPanel";
 import LoginButton from "../../components/LoginButton";
+import { NotificationContext } from "../../context/notification";
+import { UserContext } from "../../context/user";
 
-interface LogInPageProps {
-  onLogin: (user: string) => void;
-}
-
-const LogInPage = ({ onLogin }: LogInPageProps) => {
+const LogInPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [notification, setNotification] = useContext(NotificationContext);
+
+  const [_user, setUser] = useContext(UserContext);
 
   const updateUsername: ChangeEventHandler<HTMLInputElement> = (e) =>
     setUsername(e.target?.value);
@@ -19,7 +26,8 @@ const LogInPage = ({ onLogin }: LogInPageProps) => {
 
   const logIn: FormEventHandler = (e) => {
     e.preventDefault();
-    onLogin(username);
+    setUser({ username, favorites: getFavorites() });
+    localStorage.setItem("username", username);
   };
 
   return (

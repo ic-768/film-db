@@ -10,7 +10,7 @@ export type LoaderArgs = boolean | positionedLoaderArgs;
 type LoaderContextArgs = [LoaderArgs, Dispatch<SetStateAction<LoaderArgs>>];
 
 /**
- * Ctx to provide isLoading and setIsLoading to subcomponents. Is provided with state in outer app component.
+ * Ctx to provide loader and setLoader to subcomponents. Is provided with state in outer app component.
  */
 export const LoaderContext = React.createContext<LoaderContextArgs>([
   false,
