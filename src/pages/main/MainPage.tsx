@@ -1,25 +1,33 @@
-import { ChangeEventHandler, FormEventHandler, useState } from "react";
+import {
+  ChangeEventHandler,
+  FormEventHandler,
+  useContext,
+  useState,
+} from "react";
 
 import { baseURL, BasicMovieDetails } from "../../common";
+import Loader from "../../components/Loader";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import PageButton from "../../components/PageButton";
 import SearchPanel from "../../components/SearchPanel";
 import SignOutButton from "../../components/SignOutButton";
+import { LoaderContext } from "../../context/loader";
 
 const MainPage = () => {
   const [titleFilter, setTitleFilter] = useState("");
   const [movies, setMovies] = useState<BasicMovieDetails[]>([]);
   const [totalMovieResults, setTotalMovieResults] = useState(0);
   const [page, setPage] = useState(1);
+  const [loader, setLoader] = useContext(LoaderContext);
 
   const updateFilter: ChangeEventHandler<HTMLInputElement> = (e) =>
     setTitleFilter(e.target.value);
 
   const fetchMovies = async (page = 1) => {
     if (!titleFilter) return;
+    setLoader(true);
 
     try {
-      // TODO show loader
       const response = await fetch(
         `${baseURL}&s="${titleFilter}"&page=${page}`
       );
@@ -33,12 +41,11 @@ const MainPage = () => {
         setMovies(data.Search);
         setTotalMovieResults(data.totalResults);
       }
-      console.log(data);
     } catch (error) {
       if (error instanceof Error) {
-        // TODO show error message
       }
     }
+    setLoader(false);
   };
 
   const searchByTitle: FormEventHandler = (e) => {
@@ -72,6 +79,7 @@ const MainPage = () => {
     <div>
       <SignOutButton />
       <FilmButtons />
+      {loader ? <Loader /> : null}
       <form onSubmit={searchByTitle}>
         <SearchPanel filter={titleFilter} onChangeFilter={updateFilter} />
       </form>

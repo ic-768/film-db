@@ -6,11 +6,11 @@ import MainPage from "./pages/main";
 import { UserContext } from "./context/user";
 import { User } from "./common";
 import MoviePage from "./pages/movie";
+import { LoaderArgs, LoaderContext } from "./context/loader";
 
 function App() {
   const [user, setUser] = useState<undefined | null | User>(undefined);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+  const [loader, setLoader] = useState<LoaderArgs>(false);
 
   const getFavorites = () => {
     const favoritesString = localStorage.getItem("favorites");
@@ -38,15 +38,17 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-800">
-      <UserContext.Provider value={[user, setUser]}>
-        <Routes>
-          <Route
-            path="/"
-            element={user ? <MainPage /> : <LogInPage onLogin={onLogin} />}
-          />
-          <Route path="/:id" element={<MoviePage />} />
-        </Routes>
-      </UserContext.Provider>
+      <LoaderContext.Provider value={[loader, setLoader]}>
+        <UserContext.Provider value={[user, setUser]}>
+          <Routes>
+            <Route
+              path="/"
+              element={user ? <MainPage /> : <LogInPage onLogin={onLogin} />}
+            />
+            <Route path="/:id" element={<MoviePage />} />
+          </Routes>
+        </UserContext.Provider>
+      </LoaderContext.Provider>
     </div>
   );
 }
