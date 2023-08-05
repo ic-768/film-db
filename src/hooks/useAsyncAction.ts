@@ -15,30 +15,23 @@ export const useAsyncAction = () => {
     errorMessage: string,
     successCallback: (data: any) => void
   ) => {
+    const onError = () =>
+      setNotification({
+        type: "error",
+        message: errorMessage,
+      });
+
     setLoader(true);
 
     try {
       const response = await fetch(route);
-      // TODO move rejections into same code area. Use logical || probably
-      if (!response.ok) {
-        setNotification({
-          type: "error",
-          message: errorMessage,
-        });
-      }
+      if (!response.ok) onError();
+
       const data = await response.json();
-      if (data.Error) {
-        setNotification({
-          type: "error",
-          message: errorMessage,
-        });
-      } else {
-        successCallback(data);
-      }
+      if (data.Error) onError();
+      else successCallback(data);
     } catch (error) {
-      if (error instanceof Error) {
-        setNotification({ type: "error", message: errorMessage });
-      }
+      if (error instanceof Error) onError();
     }
     setLoader(false);
   };
