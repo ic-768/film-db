@@ -1,20 +1,23 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { baseURL, FullMovieDetails } from "../../common";
 import FavoriteButton from "../../components/FavoriteButton";
 import HomeButton from "../../components/HomeButton";
+import { LoaderContext } from "../../context/loader";
 import { useFavorite } from "../../hooks/useFavorite";
 
 const MoviePage = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState<FullMovieDetails | undefined>();
   const [onFavorite, onUnFavorite, isFavorite] = useFavorite(id);
+  const [loader, setLoader] = useContext(LoaderContext);
 
   useEffect(() => {
     const fetchMovie = async () => {
-      console.log("in console", id);
       if (!id) return;
+
+      setLoader(true);
 
       try {
         // TODO show loader
@@ -35,10 +38,11 @@ const MoviePage = () => {
           // TODO show error message
         }
       }
+      setLoader(false);
     };
 
     fetchMovie();
-  }, [id]);
+  }, [id, setLoader]);
 
   const MovieDetail = ({ name, detail }: { name: string; detail: string }) => (
     <p className="text-gray-600 mb-4">
@@ -94,7 +98,6 @@ const MoviePage = () => {
       </div>
     </div>
   ) : null;
-  // TODO loader
 };
 
 export default MoviePage;

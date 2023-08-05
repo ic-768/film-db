@@ -79,7 +79,6 @@ const MainPage = () => {
     <div>
       <SignOutButton />
       <FilmButtons />
-      {loader ? <Loader /> : null}
       <form onSubmit={searchByTitle}>
         <SearchPanel filter={titleFilter} onChangeFilter={updateFilter} />
       </form>

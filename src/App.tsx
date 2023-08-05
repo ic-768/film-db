@@ -7,6 +7,7 @@ import { UserContext } from "./context/user";
 import { User } from "./common";
 import MoviePage from "./pages/movie";
 import { LoaderArgs, LoaderContext } from "./context/loader";
+import Loader from "./components/Loader";
 
 function App() {
   const [user, setUser] = useState<undefined | null | User>(undefined);
@@ -40,6 +41,7 @@ function App() {
     <div className="min-h-screen bg-slate-800">
       <LoaderContext.Provider value={[loader, setLoader]}>
         <UserContext.Provider value={[user, setUser]}>
+          {loader ? <Loader /> : null}
           <Routes>
             <Route
               path="/"
