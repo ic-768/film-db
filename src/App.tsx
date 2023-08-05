@@ -3,8 +3,9 @@ import { Route, Routes } from "react-router-dom";
 
 import LogInPage from "./pages/login";
 import MainPage from "./pages/main";
-import { UserContext } from "./context/user";
 import MoviePage from "./pages/movie";
+import FavoritesPage from "./pages/favorites";
+import { UserContext } from "./context/user";
 import { LoaderArgs, LoaderContext } from "./context/loader";
 import Loader from "./components/Loader";
 import Notification, { NotificationProps } from "./components/Notification";
@@ -51,6 +52,7 @@ function App() {
             <Routes>
               <Route path="/" element={user ? <MainPage /> : <LogInPage />} />
               <Route path="/:id" element={<MoviePage />} />
+              <Route path="/favorites" element={<FavoritesPage />} />
             </Routes>
           </UserContext.Provider>
         </NotificationContext.Provider>

@@ -28,7 +28,11 @@ export type FullMovieDetails = BasicMovieDetails & {
   imdbVotes: string;
 };
 
+export type Favorite = {
+  title: string;
+  id: BasicMovieDetails["imdbID"];
+};
 export type User = {
   username: string;
-  favorites: BasicMovieDetails["imdbID"][];
+  favorites: Favorite[];
 };

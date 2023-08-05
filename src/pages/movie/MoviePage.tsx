@@ -15,7 +15,7 @@ const MoviePage = () => {
   const [_loader, setLoader] = useContext(LoaderContext);
   const [_notification, setNotification] = useContext(NotificationContext);
 
-  const [onFavorite, onUnFavorite, isFavorite] = useFavorite(id);
+  const [onFavorite, onUnFavorite, isFavorite] = useFavorite(movie?.Title!, id);
 
   useEffect(() => {
     const fetchMovie = async () => {

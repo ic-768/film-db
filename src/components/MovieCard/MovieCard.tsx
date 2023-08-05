@@ -15,7 +15,7 @@ interface MovieCardProps {
 
 const MovieCard = ({ title, year, id, poster }: MovieCardProps) => {
   const [hasLoaded, setHasLoaded] = useState(false);
-  const [onFavorite, onUnfavorite, isFavorited] = useFavorite(id);
+  const [onFavorite, onUnfavorite, isFavorited] = useFavorite(title, id);
 
   const navigate = useNavigate();
 
