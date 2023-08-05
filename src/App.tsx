@@ -51,11 +51,18 @@ function App() {
               />
             ) : null}
             {user ? <SignOutButton /> : null}
-            <Routes>
-              <Route path="/" element={user ? <MainPage /> : <LogInPage />} />
-              <Route path="/:id" element={<MoviePage />} />
-              <Route path="/favorites" element={<FavoritesPage />} />
-            </Routes>
+            {user ? (
+              <Routes>
+                <Route
+                  path="/:urlTitle?/:urlPage?/:urlYear?/:urlType?"
+                  element={<MainPage />}
+                />
+                <Route path="/single/:id" element={<MoviePage />} />
+                <Route path="/favorites" element={<FavoritesPage />} />
+              </Routes>
+            ) : (
+              <LogInPage />
+            )}
           </UserContext.Provider>
         </NotificationContext.Provider>
       </LoaderContext.Provider>

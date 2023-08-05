@@ -18,7 +18,7 @@ const FavoritesPage = () => {
           >
             <button
               className="h-full w-full p-4"
-              onClick={() => navigate(`/${f.id}`)}
+              onClick={() => navigate(`/single/${f.id}`)}
             >
               <h2 className="text-lg font-semibold text-gray-800 mb-2">
                 {f.title}

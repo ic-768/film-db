@@ -1,12 +1,16 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { UserContext } from "../../context/user";
 
 const SignOutButton = () => {
   const [_user, setUser] = useContext(UserContext);
+  const navigate = useNavigate();
 
   const onSignOut = () => {
     setUser(undefined);
     localStorage.removeItem("username");
+    navigate("/");
   };
 
   return (

@@ -1,4 +1,10 @@
-import { ChangeEventHandler, FormEventHandler, useState } from "react";
+import {
+  ChangeEventHandler,
+  FormEventHandler,
+  useEffect,
+  useState,
+} from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import MovieCard from "../../components/MovieCard/MovieCard";
 import PageButton from "../../components/PageButton";
@@ -14,9 +20,26 @@ const MainPage = () => {
   const [page, setPage] = useState(1);
 
   const getMovies = useAsyncAction();
+  const navigate = useNavigate();
+  const { urlTitle, urlYear, urlType, urlPage } = useParams();
 
   const updateFilter: ChangeEventHandler<HTMLInputElement> = (e) =>
     setTitleFilter(e.target.value);
+
+  useEffect(() => {
+    if (!urlTitle) return;
+
+    let url = `${baseURL}&s="${urlTitle}"&page=${urlPage}`;
+    if (urlYear) {
+      url += `&y=${urlYear}`;
+    }
+
+    if (urlType) {
+      url += `&type=${urlType}`;
+    }
+
+    getMovies(url, "something went wrong", onFetchMovies);
+  }, []);
 
   const onFetchMovies = (data: any) => {
     setMovies(data.Search);
@@ -24,13 +47,15 @@ const MainPage = () => {
   };
 
   const fetchMovies = async (page = 1) => {
-    if (!titleFilter) return;
+    const title = titleFilter || urlTitle;
+    if (!title) return;
 
     getMovies(
-      `${baseURL}&s="${titleFilter}"&page=${page}`,
+      `${baseURL}&s="${title}"&page=${page}`,
       "something went wrong",
       onFetchMovies
     );
+    navigate(`/${title}`);
   };
 
   const searchByTitle: FormEventHandler = (e) => {

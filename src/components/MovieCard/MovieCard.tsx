@@ -31,7 +31,7 @@ const MovieCard = (movie: MovieCardProps) => {
   }`;
 
   const onLoad = () => setHasLoaded(true);
-  const onClickMovie = () => navigate(id);
+  const onClickMovie = () => navigate(`/single/${id}`);
 
   return (
     <li
