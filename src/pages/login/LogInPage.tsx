@@ -26,6 +26,7 @@ const LogInPage = () => {
 
   const logIn: FormEventHandler = (e) => {
     e.preventDefault();
+    setNotification({ type: "success", message: "Welcome!" });
     setUser({ username, favorites: getFavorites() });
     localStorage.setItem("username", username);
   };

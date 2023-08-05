@@ -27,6 +27,15 @@ function App() {
     }
   }, []);
 
+  // remove notifications after a fixed amount of time
+  useEffect(() => {
+    if (notification) {
+      setTimeout(() => {
+        setNotification(null);
+      }, 4500);
+    }
+  }, [notification]);
+
   return (
     <div className="min-h-screen bg-slate-800">
       <LoaderContext.Provider value={[loader, setLoader]}>
