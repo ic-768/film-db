@@ -1,15 +1,29 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { UserContext } from "../../context/user";
 
 const FavoritesPage = () => {
   const [user] = useContext(UserContext);
+  const navigate = useNavigate();
 
   return (
-    <div>
-      {user?.favorites.map((f) => (
-        <span>{f.title}</span>
-      ))}
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-4">Your Favorites</h1>
+      <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {user?.favorites.map((f) => (
+          <li
+            key={f.id}
+            className="border rounded-lg p-4 shadow-md bg-white hover:bg-gray-100"
+          >
+            <button onClick={() => navigate(`/${f.id}`)}>
+              <h2 className="text-lg font-semibold text-gray-800 mb-2">
+                {f.title}
+              </h2>
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
