@@ -19,6 +19,8 @@ const SearchPanel = ({ filter, onChangeFilter }: SearchPanelProps) => (
         id="input"
         icon={faMagnifyingGlass}
       />
+      <div>Year</div>
+      <div>Type</div>
     </div>
   </div>
 );

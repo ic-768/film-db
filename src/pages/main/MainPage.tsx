@@ -1,10 +1,10 @@
 import { ChangeEventHandler, FormEventHandler, useState } from "react";
 
-import { baseURL, BasicMovieDetails } from "../../common";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import PageButton from "../../components/PageButton";
 import SearchPanel from "../../components/SearchPanel";
-import SignOutButton from "../../components/SignOutButton";
+
+import { baseURL, BasicMovieDetails } from "../../common";
 import { useAsyncAction } from "../../hooks";
 
 const MainPage = () => {
@@ -62,7 +62,6 @@ const MainPage = () => {
 
   return (
     <div>
-      <SignOutButton />
       <FilmButtons />
       <form onSubmit={searchByTitle}>
         <SearchPanel filter={titleFilter} onChangeFilter={updateFilter} />

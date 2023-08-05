@@ -2,7 +2,7 @@ export type BasicMovieDetails = {
   Title: string;
   Year: string;
   imdbID: string;
-  Type: string;
+  Type: "movie" | "series";
   Poster: string;
 };
 
@@ -29,7 +29,8 @@ export type FullMovieDetails = BasicMovieDetails & {
 };
 
 export type Favorite = {
-  title: string;
+  year: BasicMovieDetails["Year"];
+  title: BasicMovieDetails["Title"];
   id: BasicMovieDetails["imdbID"];
 };
 export type User = {

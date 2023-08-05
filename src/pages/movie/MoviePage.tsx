@@ -10,7 +10,11 @@ const MoviePage = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState<FullMovieDetails | undefined>();
 
-  const [onFavorite, onUnFavorite, isFavorite] = useFavorite(movie?.Title!, id);
+  const [onFavorite, onUnFavorite, isFavorite] = useFavorite(
+    movie?.Title!,
+    movie?.Year!,
+    id
+  );
   const getMovie = useAsyncAction();
 
   useEffect(() => {

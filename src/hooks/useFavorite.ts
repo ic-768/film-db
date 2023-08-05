@@ -4,7 +4,8 @@ import { UserContext } from "../context/user";
 
 // Hook to provide all functionality around favorite movies
 export const useFavorite = (
-  title: string,
+  title: BasicMovieDetails["Title"],
+  year: BasicMovieDetails["imdbID"],
   id?: BasicMovieDetails["imdbID"]
 ) => {
   const [user, setUser] = useContext(UserContext);
@@ -16,7 +17,8 @@ export const useFavorite = (
 
   const onFavorite = () => {
     if (!id) return;
-    const updatedFavorites = user!.favorites.concat({ title, id });
+    const updatedFavorites = user!.favorites.concat({ title, year, id });
+
     updateFavorites(updatedFavorites);
   };
 

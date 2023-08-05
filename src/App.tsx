@@ -11,6 +11,7 @@ import Loader from "./components/Loader";
 import Notification, { NotificationProps } from "./components/Notification";
 import { NotificationContext } from "./context/notification";
 import { getFavorites, User } from "./common";
+import SignOutButton from "./components/SignOutButton";
 
 function App() {
   const [user, setUser] = useState<undefined | null | User>(undefined);
@@ -49,6 +50,7 @@ function App() {
                 message={notification.message}
               />
             ) : null}
+            {user ? <SignOutButton /> : null}
             <Routes>
               <Route path="/" element={user ? <MainPage /> : <LogInPage />} />
               <Route path="/:id" element={<MoviePage />} />
