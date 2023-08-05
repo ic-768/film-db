@@ -14,9 +14,12 @@ const FavoritesPage = () => {
         {user?.favorites.map((f) => (
           <li
             key={f.id}
-            className="border rounded-lg p-4 shadow-md bg-white hover:bg-gray-100"
+            className="border rounded-lg shadow-md bg-white hover:bg-gray-100"
           >
-            <button onClick={() => navigate(`/${f.id}`)}>
+            <button
+              className="h-full w-full p-4"
+              onClick={() => navigate(`/${f.id}`)}
+            >
               <h2 className="text-lg font-semibold text-gray-800 mb-2">
                 {f.title}
               </h2>
