@@ -15,6 +15,7 @@ const DropdownInput = ({ options, title, onChange }: DropdownInputProps) => {
   const [selectedOption, setSelectedOption] = useState<string | undefined>(); // State to keep track of the selected option
 
   const handleOptionChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
+    console.log(event);
     setSelectedOption(event.target.value);
     onChange(event.target.value);
   };

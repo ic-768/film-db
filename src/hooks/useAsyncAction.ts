@@ -28,7 +28,7 @@ export const useAsyncAction = () => {
       if (!response.ok) onError();
 
       const data = await response.json();
-      if (data.Error) onError();
+      if (data.Error) setNotification({ type: "error", message: data.Error });
       else successCallback(data);
     } catch (error) {
       if (error instanceof Error) onError();

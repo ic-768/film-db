@@ -49,10 +49,19 @@ const MainPage = () => {
     return url;
   };
 
-  // keep title filter in sync with url param
+  /*Keep filters in sync with url params*/
   useEffect(() => {
     setTitleFilter(urlTitle || "");
   }, [urlTitle]);
+
+  useEffect(() => {
+    setYearFilter(urlYear || "");
+  }, [urlYear]);
+
+  useEffect(() => {
+    setTypeFilter(urlType || "");
+  }, [urlType]);
+  /******************************************/
 
   // on first render => check url params to load the referenced movie results
   useEffect(() => {
