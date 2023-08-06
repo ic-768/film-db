@@ -6,23 +6,30 @@ import TypeInput from "../TypeInput";
 import YearInput from "../YearInput";
 
 export interface SearchPanelProps {
-  filter: string;
-  onChangeFilter: ChangeEventHandler<HTMLInputElement>;
+  title: string;
+  onChangeTitle: ChangeEventHandler<HTMLInputElement>;
+  onChangeYear: (y?: string) => void;
+  onChangeType: (t?: string) => void;
 }
 
-const SearchPanel = ({ filter, onChangeFilter }: SearchPanelProps) => (
+const SearchPanel = ({
+  title,
+  onChangeTitle,
+  onChangeYear,
+  onChangeType,
+}: SearchPanelProps) => (
   <div className="flex flex-col justify-center items-center w-full p-4 outline outline-2 gap-4 ">
     <div className="flex flex-col outline-slate-200 bg-slate-600 p-6 rounded-lg">
       <label htmlFor="title_search">Search for a film</label>
       <InputWithButton
         placeholder="e.g. Avengers"
-        text={filter}
-        setText={onChangeFilter}
+        text={title}
+        setText={onChangeTitle}
         id="title_search"
         icon={faMagnifyingGlass}
       />
-      <YearInput />
-      <TypeInput />
+      <YearInput setYear={onChangeYear} />
+      <TypeInput setType={onChangeType} />
     </div>
   </div>
 );

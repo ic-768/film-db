@@ -8,13 +8,15 @@ export type DropdownOption = {
 interface DropdownInputProps {
   title: string;
   options: DropdownOption[];
+  onChange: (v: string) => void;
 }
 
-const DropdownInput = ({ options, title }: DropdownInputProps) => {
+const DropdownInput = ({ options, title, onChange }: DropdownInputProps) => {
   const [selectedOption, setSelectedOption] = useState<string | undefined>(); // State to keep track of the selected option
 
   const handleOptionChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
     setSelectedOption(event.target.value);
+    onChange(event.target.value);
   };
 
   return (

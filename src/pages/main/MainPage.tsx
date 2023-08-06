@@ -14,32 +14,52 @@ import { baseURL, BasicMovieDetails } from "../../common";
 import { useAsyncAction } from "../../hooks";
 
 const MainPage = () => {
+  // TODO group into a single filter object
   const [titleFilter, setTitleFilter] = useState("");
+  const [yearFilter, setYearFilter] = useState<string | undefined>();
+  const [typeFilter, setTypeFilter] = useState<string | undefined>();
+
   const [movies, setMovies] = useState<BasicMovieDetails[]>([]);
   const [totalMovieResults, setTotalMovieResults] = useState(0);
   const [page, setPage] = useState(1);
 
   const getMovies = useAsyncAction();
   const navigate = useNavigate();
+
   const { urlTitle, urlYear, urlType, urlPage } = useParams();
 
   const updateFilter: ChangeEventHandler<HTMLInputElement> = (e) =>
     setTitleFilter(e.target.value);
+
+  // Used to construct a url to fetch - could be from state or url params
+  const constructUrl = (
+    title?: string,
+    page?: string | number,
+    year?: string,
+    type?: string
+  ) => {
+    let url = `${baseURL}&s="${title}"&page=${page}`;
+    if (year) {
+      url += `&y=${year}`;
+    }
+
+    if (type) {
+      url += `&type=${type}`;
+    }
+    return url;
+  };
+
+  // keep title filter in sync with url param
+  useEffect(() => {
+    setTitleFilter(urlTitle || "");
+  }, [urlTitle]);
 
   // on first render => check url params to load the referenced movie results
   useEffect(() => {
     if (!urlTitle) return;
     if (urlPage) setPage(Number(urlPage));
 
-    let url = `${baseURL}&s="${urlTitle}"&page=${urlPage || page}`;
-    if (urlYear) {
-      url += `&y=${urlYear}`;
-    }
-
-    if (urlType) {
-      url += `&type=${urlType}`;
-    }
-
+    const url = constructUrl(urlTitle, urlPage || page, urlYear, urlType);
     getMovies(url, "something went wrong", onFetchMovies);
   }, []);
 
@@ -49,36 +69,35 @@ const MainPage = () => {
     setTotalMovieResults(data.totalResults);
   };
 
-  // handle api call and navigate to url
-  const fetchMovies = async (page = 1) => {
-    const title = titleFilter || urlTitle;
-    if (!title) return;
-
-    getMovies(
-      `${baseURL}&s="${title}"&page=${page}`,
-      "something went wrong",
-      onFetchMovies
-    );
-    navigate(`/${title}`);
-  };
-
-  const searchByTitle: FormEventHandler = (e) => {
+  // Triggered when searching normally thorugh search panel
+  const searchForFilm: FormEventHandler = (e) => {
     e.preventDefault();
-    fetchMovies();
+    if (!titleFilter) return;
+
+    // uses state to construct url
+    const url = constructUrl(titleFilter, 1, yearFilter, typeFilter);
+    getMovies(url, "something went wrong", onFetchMovies);
+    navigate(`/${titleFilter}`);
+    setPage(1);
   };
 
+  // update page and add url param
   const updatePage = (page: number) => {
-    fetchMovies(page);
+    const url = constructUrl(urlTitle, page, yearFilter, typeFilter);
+    getMovies(url, "something went wrong", onFetchMovies);
+    navigate(`/${titleFilter}`);
     setPage(page);
     navigate(`/${urlTitle}/${page}`);
   };
 
   const incPage = () => {
-    updatePage(page + 1);
+    const nextPage = page + 1;
+    updatePage(nextPage);
   };
 
   const decPage = () => {
-    updatePage(page - 1);
+    const prevPage = page - 1;
+    updatePage(prevPage);
   };
 
   const FilmButtons = () =>
@@ -93,11 +112,18 @@ const MainPage = () => {
       </>
     ) : null;
 
+  console.log(yearFilter, typeFilter);
+
   return (
     <div>
       <FilmButtons />
-      <form onSubmit={searchByTitle}>
-        <SearchPanel filter={titleFilter} onChangeFilter={updateFilter} />
+      <form onSubmit={searchForFilm}>
+        <SearchPanel
+          title={titleFilter}
+          onChangeTitle={updateFilter}
+          onChangeYear={(y?: string) => setYearFilter(y)}
+          onChangeType={(t?: string) => setTypeFilter(t)}
+        />
       </form>
       <ul className="grid grid-cols-1 gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3 py-6 px-28">
         {movies.map((m) => (
