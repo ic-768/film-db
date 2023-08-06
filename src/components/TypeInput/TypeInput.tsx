@@ -8,7 +8,7 @@ const TypeInput = () => {
     { value: "series", label: "Series" },
   ];
 
-  return <DropdownInput options={options} />;
+  return <DropdownInput title="Type (optional)" options={options} />;
 };
 
 export default TypeInput;

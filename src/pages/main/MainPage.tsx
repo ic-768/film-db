@@ -26,7 +26,7 @@ const MainPage = () => {
   const updateFilter: ChangeEventHandler<HTMLInputElement> = (e) =>
     setTitleFilter(e.target.value);
 
-  // on first render => check url params to load the referenced movie
+  // on first render => check url params to load the referenced movie results
   useEffect(() => {
     if (!urlTitle) return;
     if (urlPage) setPage(Number(urlPage));

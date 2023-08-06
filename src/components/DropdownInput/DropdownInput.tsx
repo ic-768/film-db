@@ -1,21 +1,26 @@
-import { useState } from "react";
+import { ChangeEventHandler, useState } from "react";
 
 export type DropdownOption = {
   value?: string;
   label: string;
 };
 
-const DropdownInput = ({ options }: { options: DropdownOption[] }) => {
-  const [selectedOption, setSelectedOption] = useState(); // State to keep track of the selected option
+interface DropdownInputProps {
+  title: string;
+  options: DropdownOption[];
+}
 
-  const handleOptionChange = (event: any) => {
+const DropdownInput = ({ options, title }: DropdownInputProps) => {
+  const [selectedOption, setSelectedOption] = useState<string | undefined>(); // State to keep track of the selected option
+
+  const handleOptionChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
     setSelectedOption(event.target.value);
   };
 
   return (
     <div>
       <label className="block" htmlFor="Dropdown">
-        Dropdown (optional)
+        {title}
       </label>
       <select
         id="Dropdown"

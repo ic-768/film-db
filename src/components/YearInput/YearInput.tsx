@@ -10,7 +10,7 @@ const YearInput = () => {
     }),
   ];
 
-  return <DropdownInput options={options} />;
+  return <DropdownInput title="Year (optional)" options={options} />;
 };
 
 export default YearInput;
