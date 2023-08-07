@@ -1,22 +1,24 @@
-import { ChangeEventHandler, useState } from "react";
+import { ChangeEventHandler } from "react";
 
-export type DropdownOption = {
+type DropdownOption = {
   value?: string;
   label: string;
 };
 
 interface DropdownInputProps {
   title: string;
+  selectedOption?: DropdownOption;
   options: DropdownOption[];
-  onChange: (v: string) => void;
+  onChange: (label: DropdownOption["value"]) => void;
 }
 
-const DropdownInput = ({ options, title, onChange }: DropdownInputProps) => {
-  const [selectedOption, setSelectedOption] = useState<string | undefined>(); // State to keep track of the selected option
-
+const DropdownInput = ({
+  selectedOption,
+  options,
+  title,
+  onChange,
+}: DropdownInputProps) => {
   const handleOptionChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
-    console.log(event);
-    setSelectedOption(event.target.value);
     onChange(event.target.value);
   };
 
@@ -28,7 +30,7 @@ const DropdownInput = ({ options, title, onChange }: DropdownInputProps) => {
       <select
         id="Dropdown"
         name="Dropdown"
-        value={selectedOption}
+        value={selectedOption?.value}
         onChange={handleOptionChange}
         className="cursor-pointer bg-white px-4 py-2 pr-8 text-black"
       >
@@ -43,3 +45,4 @@ const DropdownInput = ({ options, title, onChange }: DropdownInputProps) => {
 };
 
 export default DropdownInput;
+export type { DropdownOption };

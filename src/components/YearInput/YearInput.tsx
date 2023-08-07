@@ -2,7 +2,7 @@ import DropdownInput from "../DropdownInput";
 
 interface YearInputProps {
   year?: string;
-  setYear: (y: string) => void;
+  setYear: (y?: string) => void;
 }
 
 const YearInput = ({ year, setYear }: YearInputProps) => {
@@ -15,8 +15,11 @@ const YearInput = ({ year, setYear }: YearInputProps) => {
     }),
   ];
 
+  const selectedOption = options.find((o) => o.value === year);
+
   return (
     <DropdownInput
+      selectedOption={selectedOption}
       title="Year (optional)"
       options={options}
       onChange={setYear}
