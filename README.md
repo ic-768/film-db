@@ -3,7 +3,8 @@
 ## Live Link
 [https://filmdb.onrender.com ](https://filmdb.onrender.com )
 
-Note: Refreshing the page doesn't work because I don't have access to the server configuration on this deployment platform!
+Note: Refreshing the page redirects to `/` on the live version due to the server configuration, but running it locally,
+url params will be preserved and passed to state on initial render.
 
 ## Running the app
 This app expects a `.env` file in the project root with a key for `REACT_APP_API_KEY`
