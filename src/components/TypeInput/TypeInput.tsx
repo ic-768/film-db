@@ -6,7 +6,7 @@ interface TypeInputProps {
 }
 
 const TypeInput = ({ type, setType }: TypeInputProps) => {
-  // create options for every Type, starting from 1920
+  // create options for every Type
   const options: DropdownOption[] = [
     { value: "", label: "None" },
     { value: "movie", label: "Movie" },

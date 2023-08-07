@@ -7,11 +7,11 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 
 import MovieCard from "../../components/MovieCard/MovieCard";
-import PageButton from "../../components/PageButton";
 import SearchPanel from "../../components/SearchPanel";
 
 import { baseURL, BasicMovieDetails } from "../../common";
 import { useAsyncAction } from "../../hooks";
+import PageButtons from "../../components/PageButtons/PageButtons";
 
 const MainPage = () => {
   // TODO group into a single filter object
@@ -116,21 +116,15 @@ const MainPage = () => {
     updatePage(prevPage);
   };
 
-  const FilmButtons = () =>
-    movies.length ? (
-      <>
-        {page !== 1 ? (
-          <PageButton onClick={decPage} orientation="backward" />
-        ) : null}
-        {page * 10 <= totalMovieResults ? (
-          <PageButton onClick={incPage} />
-        ) : null}
-      </>
-    ) : null;
-
   return (
     <div>
-      <FilmButtons />
+      <PageButtons
+        numDisplayedMovies={movies?.length}
+        totalMovies={totalMovieResults}
+        currentPage={page}
+        incPage={incPage}
+        decPage={decPage}
+      />
       <form onSubmit={searchForFilm}>
         <SearchPanel
           title={titleFilter}
