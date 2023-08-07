@@ -88,8 +88,10 @@ const MainPage = () => {
     getMovies(fetchUrl, "something went wrong", onFetchMovies);
 
     let pageUrl = `/${titleFilter}/1`;
-    if (yearFilter) pageUrl += `/${yearFilter}`;
+    pageUrl += `/${yearFilter || '""'}`;
     if (typeFilter) pageUrl += `/${typeFilter}`;
+
+    console.log("pageUrl", pageUrl);
 
     navigate(pageUrl);
     setPage(1);
@@ -125,8 +127,6 @@ const MainPage = () => {
         ) : null}
       </>
     ) : null;
-
-  console.log(yearFilter, typeFilter);
 
   return (
     <div>
