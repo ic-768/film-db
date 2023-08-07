@@ -7,7 +7,7 @@ type DropdownOption = {
 
 interface DropdownInputProps {
   title: string;
-  selectedOption?: DropdownOption;
+  selectedOption?: DropdownOption["value"];
   options: DropdownOption[];
   onChange: (label: DropdownOption["value"]) => void;
 }
@@ -22,6 +22,8 @@ const DropdownInput = ({
     onChange(event.target.value);
   };
 
+  const option = options.find((o) => o.value === selectedOption);
+
   return (
     <div>
       <label className="block" htmlFor="Dropdown">
@@ -30,7 +32,7 @@ const DropdownInput = ({
       <select
         id="Dropdown"
         name="Dropdown"
-        value={selectedOption?.value}
+        value={option?.value}
         onChange={handleOptionChange}
         className="cursor-pointer bg-white px-4 py-2 pr-8 text-black"
       >

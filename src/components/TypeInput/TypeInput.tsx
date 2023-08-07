@@ -1,9 +1,8 @@
-import DropdownInput from "../DropdownInput";
-import { DropdownOption } from "../DropdownInput/DropdownInput";
+import DropdownInput, { DropdownOption } from "../DropdownInput";
 
 interface TypeInputProps {
   type?: string;
-  setType: (y?: string) => void;
+  setType: (t?: DropdownOption["value"]) => void;
 }
 
 const TypeInput = ({ type, setType }: TypeInputProps) => {
@@ -14,13 +13,11 @@ const TypeInput = ({ type, setType }: TypeInputProps) => {
     { value: "series", label: "Series" },
   ];
 
-  const selectedOption = options.find((o) => o.value === type);
-
   return (
     <DropdownInput
       title="Type (optional)"
       options={options}
-      selectedOption={selectedOption}
+      selectedOption={type}
       onChange={setType}
     />
   );
