@@ -14,6 +14,9 @@ export interface SearchPanelProps {
   onChangeType: (t?: string) => void;
 }
 
+/**
+ * Used to filter movies based on title/year/type
+ */
 const SearchPanel = ({
   title,
   year,

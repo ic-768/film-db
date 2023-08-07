@@ -1,3 +1,4 @@
+import { baseURL } from "./data";
 import { Favorite } from "./types";
 // gets favorites from local storage.
 // used in two cases - when logging in, and on first render if there's an existing user.
@@ -11,4 +12,22 @@ const getFavorites = () => {
   return favorites;
 };
 
-export { getFavorites };
+// Used to construct a url to fetch - could be from state or url params
+const constructUrl = (
+  title?: string,
+  page?: string | number,
+  year?: string,
+  type?: string
+) => {
+  let url = `${baseURL}&s="${title}"&page=${page}`;
+  if (year) {
+    url += `&y=${year}`;
+  }
+
+  if (type) {
+    url += `&type=${type}`;
+  }
+  return url;
+};
+
+export { getFavorites, constructUrl };

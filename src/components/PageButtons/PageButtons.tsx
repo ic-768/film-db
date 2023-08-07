@@ -7,6 +7,9 @@ interface PageButtonsProps {
   decPage: () => void;
   incPage: () => void;
 }
+/**
+ * Buttons to sift through movie result pages
+ */
 const PageButtons = ({
   numDisplayedMovies,
   totalMovies,

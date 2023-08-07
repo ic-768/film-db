@@ -5,17 +5,18 @@ import {
   useContext,
   useState,
 } from "react";
-import { getFavorites } from "../../common";
 import CredentialPanel from "../../components/CredentialPanel";
 import LoginButton from "../../components/LoginButton";
+
+import { getFavorites } from "../../common";
 import { NotificationContext } from "../../context/notification";
 import { UserContext } from "../../context/user";
 
 const LogInPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [_notification, setNotification] = useContext(NotificationContext);
 
+  const [_notification, setNotification] = useContext(NotificationContext);
   const [_user, setUser] = useContext(UserContext);
 
   const updateUsername: ChangeEventHandler<HTMLInputElement> = (e) =>
@@ -24,6 +25,7 @@ const LogInPage = () => {
   const updatePassword: ChangeEventHandler<HTMLInputElement> = (e) =>
     setPassword(e.target?.value);
 
+  // When user logs in we update the state and local storage
   const logIn: FormEventHandler = (e) => {
     e.preventDefault();
     setNotification({ type: "success", message: "Welcome!" });

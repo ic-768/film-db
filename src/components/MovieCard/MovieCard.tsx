@@ -13,6 +13,9 @@ interface MovieCardProps {
   poster: BasicMovieDetails["Poster"];
 }
 
+/**
+ * Displays basic movie details and poster (used when user is searching for movies)
+ */
 const MovieCard = (movie: MovieCardProps) => {
   const [hasLoaded, setHasLoaded] = useState(false);
   const [onFavorite, onUnfavorite, isFavorited] = useFavorite(
@@ -22,10 +25,10 @@ const MovieCard = (movie: MovieCardProps) => {
   );
 
   const navigate = useNavigate();
-
   const { title, year, id, poster } = movie;
 
   // if poster doesn't exist, don't try to wait for the image to load
+  // we use this so the <img> onLoad doesn't trigger
   const visibilityClasses = `${
     poster === "N/A" || hasLoaded ? "block" : "hidden"
   }`;

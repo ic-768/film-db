@@ -8,6 +8,9 @@ export interface NotificationProps {
   message: string;
 }
 
+/**
+ * Display a notification - different styles for different types
+ */
 const Notification = ({
   type = "informational",
   message,

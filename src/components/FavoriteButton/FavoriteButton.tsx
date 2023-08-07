@@ -7,6 +7,9 @@ interface FavoriteButtonProps {
   handleUnfavorite: () => void;
   handleFavorite: () => void;
 }
+/**
+ * Button for user to add a movie to their favorites list
+ */
 const FavoriteButton = ({
   isFavorite,
   handleUnfavorite,

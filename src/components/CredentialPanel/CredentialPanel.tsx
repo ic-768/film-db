@@ -13,6 +13,9 @@ interface CredentialPanelProps {
   placeholder?: string;
 }
 
+/**
+ * Component for user to enter username or password in login screen
+ */
 const CredentialPanel = ({
   label,
   id,

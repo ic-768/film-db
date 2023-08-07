@@ -1,10 +1,10 @@
-/*
- * Simple spinning loader to indicate that content is loading
- */
 export interface LoaderComponentArgs {
   position?: string;
 }
 
+/*
+ * Simple spinner to indicate that content is loading
+ */
 const Loader = ({ position = "inset-0 m-auto" }: LoaderComponentArgs) => (
   <svg
     width="120"

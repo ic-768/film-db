@@ -13,7 +13,7 @@ import PageButtons from "../../components/PageButtons/PageButtons";
 import FavoritesLink from "../../components/FavoritesLink";
 import SignOutButton from "../../components/SignOutButton";
 
-import { baseURL, BasicMovieDetails } from "../../common";
+import { BasicMovieDetails, constructUrl } from "../../common";
 import { useAsyncAction } from "../../hooks";
 import { UserContext } from "../../context/user";
 
@@ -37,24 +37,6 @@ const MainPage = () => {
     setTitleFilter(e.target.value);
   const updateYear = (y?: string) => setYearFilter(y);
   const updateType = (t?: string) => setTypeFilter(t);
-
-  // Used to construct a url to fetch - could be from state or url params
-  const constructUrl = (
-    title?: string,
-    page?: string | number,
-    year?: string,
-    type?: string
-  ) => {
-    let url = `${baseURL}&s="${title}"&page=${page}`;
-    if (year) {
-      url += `&y=${year}`;
-    }
-
-    if (type) {
-      url += `&type=${type}`;
-    }
-    return url;
-  };
 
   /*Keep filters in sync with url params*/
   useEffect(() => {

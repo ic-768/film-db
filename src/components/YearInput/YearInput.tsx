@@ -5,6 +5,9 @@ interface YearInputProps {
   setYear: (y?: DropdownOption["value"]) => void;
 }
 
+/**
+ * Dropdown for movie year
+ */
 const YearInput = ({ year, setYear }: YearInputProps) => {
   // create options for every year, starting from 1920
   const options: DropdownOption[] = [

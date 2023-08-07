@@ -2,6 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+/**
+ * Redirects user to their list of favorite movies
+ */
 const FavoritesLink = () => {
   const navigate = useNavigate();
   const goToFavorites = () => navigate("/favorites");

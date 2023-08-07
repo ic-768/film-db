@@ -12,10 +12,13 @@ interface DropdownInputProps {
   onChange: (label: DropdownOption["value"]) => void;
 }
 
+/**
+ * Dropdown for user to choose a value
+ */
 const DropdownInput = ({
+  title,
   selectedOption,
   options,
-  title,
   onChange,
 }: DropdownInputProps) => {
   const handleOptionChange: ChangeEventHandler<HTMLSelectElement> = (event) => {

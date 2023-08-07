@@ -11,6 +11,9 @@ interface InputWithButtonProps {
   type?: string;
 }
 
+/**
+ * Input with a button to submit a form
+ */
 const InputWithButton = ({
   placeholder,
   text,

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-import HomeButton from "../../components/HomeButton";
+import HomeLink from "../../components/HomeLink";
 import { UserContext } from "../../context/user";
 
 const FavoritesPage = () => {
@@ -10,7 +10,7 @@ const FavoritesPage = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <HomeButton />
+      <HomeLink />
       <h1 className="text-3xl font-bold mb-4">Your Favorites</h1>
       <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {user?.favorites.map((f) => (

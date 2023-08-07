@@ -2,22 +2,26 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import FavoriteButton from "../../components/FavoriteButton";
-import HomeButton from "../../components/HomeButton";
+import HomeLink from "../../components/HomeLink";
 
 import { baseURL, FullMovieDetails } from "../../common";
 import { useAsyncAction, useFavorite } from "../../hooks";
 
+/*
+ * Basic page to view detailed info about a single movie
+ */
 const MoviePage = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState<FullMovieDetails | undefined>();
+  const getMovie = useAsyncAction();
 
   const [onFavorite, onUnFavorite, isFavorite] = useFavorite(
     movie?.Title!,
     movie?.Year!,
     id
   );
-  const getMovie = useAsyncAction();
 
+  // On page load, fetch the movie with the id used in the url
   useEffect(() => {
     const fetchMovie = async () => {
       if (!id) return;
@@ -35,7 +39,7 @@ const MoviePage = () => {
 
   return movie ? (
     <div className="container mx-auto p-4">
-      <HomeButton />
+      <HomeLink />
       <div className="max-w-3xl mx-auto bg-white rounded-lg relative">
         <FavoriteButton
           isFavorite={isFavorite}

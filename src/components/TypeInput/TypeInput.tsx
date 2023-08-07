@@ -5,6 +5,9 @@ interface TypeInputProps {
   setType: (t?: DropdownOption["value"]) => void;
 }
 
+/**
+ * Dropdown for movie type
+ */
 const TypeInput = ({ type, setType }: TypeInputProps) => {
   // create options for every Type
   const options: DropdownOption[] = [

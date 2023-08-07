@@ -11,6 +11,9 @@ interface InputWithIconProps {
   type?: string;
 }
 
+/**
+ * Basic input that can be decorated with an icon
+ */
 const InputWithIcon = ({
   text,
   setText,

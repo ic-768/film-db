@@ -2,7 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const HomeButton = () => {
+/**
+ * Redirects user to the home page
+ */
+const HomeLink = () => {
   const navigate = useNavigate();
   const goHome = () => navigate("/");
 
@@ -16,4 +19,4 @@ const HomeButton = () => {
   );
 };
 
-export default HomeButton;
+export default HomeLink;
