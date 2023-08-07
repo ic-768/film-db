@@ -1,5 +1,10 @@
 # Film DB!
 
+## Live Link
+[https://filmdb.onrender.com ](https://filmdb.onrender.com )
+
+Note: Refreshing the page doesn't work because I don't have access to the server configuration on this deployment platform!
+
 ## Running the app
 This app expects a `.env` file in the project root with a key for `REACT_APP_API_KEY`
 
@@ -80,4 +85,3 @@ Returns three functions relating to individual movies:
 - Add to favorites (in context and local storage).
 - Remove from favorites (in context and local storage).
 - Check if it is already favorited.
-
