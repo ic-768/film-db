@@ -1,46 +1,83 @@
-# Getting Started with Create React App
+# Film DB!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Running the app
+This app expects a `.env` file in the project root with a key for `REACT_APP_API_KEY`
 
-## Available Scripts
+e.g.
+```
+REACT_APP_API_KEY=9a6sdf8
+```
 
-In the project directory, you can run:
+It has been `.gitignored` for best security practices.
 
-### `npm start`
+Once that's done, you can go ahead and run the typical `npm i` and `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Basic details
+The user is stored as a simple username, along with an array of the user's favorite films in localStorage. There is no authentication or backend registration whatsoever.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The application is broken up into 4 pages:
+ - login
+ - main
+ - movie
+ - favorites
 
-### `npm test`
+### Login
+The login page comprises a simple HTML form. When it's submitted the state and localStorage are updated with the username and any favorites that reside in local storage.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Main
+The main page contains - among other things - the search filters, displays the movie results, and has buttons to increment/decrement the page count. 
 
-### `npm run build`
+### Movie
+Once the user has searched for films, they can then click on one to see a more detailed view.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Favorites
+Displays the user's favorites in a list, which the user can then click on to see the detailed view of the film.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Technical details
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Folder Structure
+The app has 4 folders in the `/src` directory:
+ - common 
+ - pages
+ - context
+ - hooks
 
-### `npm run eject`
+#### Common
+Houses data, functions, and types that are used throughout the application.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### Components
+Keeps all of the individual components. They haven't been further organised due to the relatively small size of the app.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Context
+Provides all context API functionality.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Hooks
+Has a couple of custom hooks.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Global data (context)
+Three data types were considered fit to be shared across nearly the whole application:
+ - loading status
+ - notifications
+ - user data (username and favorites)
 
-## Learn More
+ Loading and Notifications are displayed with absolutely positioned components in the outer application, so the functionality to set their state is provided through the context API.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+ Similarly, the user has to be set and unset in a couple situations, i.e. login and signout - 
+ similarly for the user's favorites.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+ ### Hooks
+ After noticing some common patterns in the code, two hooks were created to clean it up:
+  - useAsyncAction
+  - useFavorite
+
+#### UseAsyncAction
+Fetch a url, parse the JSON, check for error, call a function if successful otherwise set an error notification.
+
+This hook was extracted so as to abstract the process. It returns a function that accepts a URL route, an errorMessage, and a callback to execute on success - it handles all of the aformentioned steps.
+
+#### UseFavorite
+Returns three functions relating to individual movies:
+- Add to favorites (in context and local storage).
+- Remove from favorites (in context and local storage).
+- Check if it is already favorited.
+
