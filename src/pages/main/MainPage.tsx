@@ -84,9 +84,14 @@ const MainPage = () => {
     if (!titleFilter) return;
 
     // uses state to construct url
-    const url = constructUrl(titleFilter, 1, yearFilter, typeFilter);
-    getMovies(url, "something went wrong", onFetchMovies);
-    navigate(`/${titleFilter}`);
+    const fetchUrl = constructUrl(titleFilter, 1, yearFilter, typeFilter);
+    getMovies(fetchUrl, "something went wrong", onFetchMovies);
+
+    let pageUrl = `/${titleFilter}/1`;
+    if (yearFilter) pageUrl += `/${yearFilter}`;
+    if (typeFilter) pageUrl += `/${typeFilter}`;
+
+    navigate(pageUrl);
     setPage(1);
   };
 
@@ -129,6 +134,8 @@ const MainPage = () => {
       <form onSubmit={searchForFilm}>
         <SearchPanel
           title={titleFilter}
+          year={yearFilter}
+          type={typeFilter}
           onChangeTitle={updateFilter}
           onChangeYear={(y?: string) => setYearFilter(y)}
           onChangeType={(t?: string) => setTypeFilter(t)}

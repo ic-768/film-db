@@ -7,6 +7,8 @@ import YearInput from "../YearInput";
 
 export interface SearchPanelProps {
   title: string;
+  year?: string;
+  type?: string;
   onChangeTitle: ChangeEventHandler<HTMLInputElement>;
   onChangeYear: (y?: string) => void;
   onChangeType: (t?: string) => void;
@@ -14,6 +16,8 @@ export interface SearchPanelProps {
 
 const SearchPanel = ({
   title,
+  year,
+  type,
   onChangeTitle,
   onChangeYear,
   onChangeType,
@@ -28,8 +32,8 @@ const SearchPanel = ({
         id="title_search"
         icon={faMagnifyingGlass}
       />
-      <YearInput setYear={onChangeYear} />
-      <TypeInput setType={onChangeType} />
+      <YearInput year={year} setYear={onChangeYear} />
+      <TypeInput type={type} setType={onChangeType} />
     </div>
   </div>
 );

@@ -1,10 +1,11 @@
 import DropdownInput from "../DropdownInput";
 
 interface TypeInputProps {
+  type?: string;
   setType: (y: string) => void;
 }
 
-const TypeInput = ({ setType }: TypeInputProps) => {
+const TypeInput = ({ type, setType }: TypeInputProps) => {
   // create options for every Type, starting from 1920
   const options = [
     { value: "", label: "None" },

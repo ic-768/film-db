@@ -1,10 +1,11 @@
 import DropdownInput from "../DropdownInput";
 
 interface YearInputProps {
+  year?: string;
   setYear: (y: string) => void;
 }
 
-const YearInput = ({ setYear }: YearInputProps) => {
+const YearInput = ({ year, setYear }: YearInputProps) => {
   // create options for every year, starting from 1920
   const options = [
     { value: "", label: "None" },
