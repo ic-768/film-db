@@ -1,6 +1,7 @@
 import {
   ChangeEventHandler,
   FormEventHandler,
+  useContext,
   useEffect,
   useState,
 } from "react";
@@ -9,9 +10,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import SearchPanel from "../../components/SearchPanel";
 import PageButtons from "../../components/PageButtons/PageButtons";
+import FavoritesLink from "../../components/FavoritesLink";
+import SignOutButton from "../../components/SignOutButton";
 
 import { baseURL, BasicMovieDetails } from "../../common";
 import { useAsyncAction } from "../../hooks";
+import { UserContext } from "../../context/user";
 
 const MainPage = () => {
   // TODO group into a single filter object
@@ -25,6 +29,7 @@ const MainPage = () => {
 
   const getMovies = useAsyncAction();
   const navigate = useNavigate();
+  const [user] = useContext(UserContext);
 
   const { urlTitle, urlYear, urlType, urlPage } = useParams();
 
@@ -110,6 +115,8 @@ const MainPage = () => {
 
   return (
     <div>
+      {user ? <SignOutButton /> : null}
+      {user?.favorites.length ? <FavoritesLink /> : null}
       <PageButtons
         numDisplayedMovies={movies?.length}
         totalMovies={totalMovieResults}
