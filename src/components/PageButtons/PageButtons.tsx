@@ -13,8 +13,8 @@ const PageButtons = ({
   currentPage,
   incPage,
   decPage,
-}: PageButtonsProps) => {
-  return numDisplayedMovies ? (
+}: PageButtonsProps) =>
+  numDisplayedMovies ? (
     <>
       {currentPage !== 1 ? (
         <PageButton onClick={decPage} orientation="backward" />
@@ -24,6 +24,5 @@ const PageButtons = ({
       ) : null}
     </>
   ) : null;
-};
 
 export default PageButtons;

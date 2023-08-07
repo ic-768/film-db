@@ -5,7 +5,7 @@ import {
   useContext,
   useState,
 } from "react";
-import { getFavorites, User } from "../../common";
+import { getFavorites } from "../../common";
 import CredentialPanel from "../../components/CredentialPanel";
 import LoginButton from "../../components/LoginButton";
 import { NotificationContext } from "../../context/notification";
@@ -14,7 +14,7 @@ import { UserContext } from "../../context/user";
 const LogInPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [notification, setNotification] = useContext(NotificationContext);
+  const [_notification, setNotification] = useContext(NotificationContext);
 
   const [_user, setUser] = useContext(UserContext);
 
@@ -34,7 +34,7 @@ const LogInPage = () => {
   return (
     <form
       onSubmit={logIn}
-      className="flex flex-col gap-6 bg-slate-600 p-8 rounded-lg w-2/4 absolute mx-auto inset-x-0 top-24"
+      className="flex flex-col gap-6 bg-slate-600 p-4 rounded-lg w-3/4 absolute mx-auto inset-x-0 top-24 sm:p-8 sm:w-2/4 lg:w-1/4"
     >
       <CredentialPanel
         label="Username"

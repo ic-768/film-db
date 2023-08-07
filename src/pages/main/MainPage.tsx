@@ -8,10 +8,10 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import MovieCard from "../../components/MovieCard/MovieCard";
 import SearchPanel from "../../components/SearchPanel";
+import PageButtons from "../../components/PageButtons/PageButtons";
 
 import { baseURL, BasicMovieDetails } from "../../common";
 import { useAsyncAction } from "../../hooks";
-import PageButtons from "../../components/PageButtons/PageButtons";
 
 const MainPage = () => {
   // TODO group into a single filter object
