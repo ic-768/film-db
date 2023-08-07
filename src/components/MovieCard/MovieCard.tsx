@@ -35,15 +35,18 @@ const MovieCard = (movie: MovieCardProps) => {
 
   return (
     <li
-      className={`${visibilityClasses} relative flex flex-col items-center rounded-xl p-2 border border-slate-200 bg-slate-600 `}
+      className={`${visibilityClasses} relative flex flex-col items-center rounded-xl p-2 border border-slate-200 bg-slate-600 sm:h-auto sm:w-auto`}
     >
       <FavoriteButton
         isFavorite={isFavorited}
         handleFavorite={onFavorite}
         handleUnfavorite={onUnfavorite}
       />
-      <button onClick={onClickMovie} className="flex flex-col items-center">
-        <img alt={title} src={poster} onLoad={onLoad} />
+      <button
+        onClick={onClickMovie}
+        className="flex flex-col items-center h-full"
+      >
+        <img alt={title} src={poster} onLoad={onLoad} className="h-full" />
         <span>{title}</span>
         <span>{year}</span>
       </button>

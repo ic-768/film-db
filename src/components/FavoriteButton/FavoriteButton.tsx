@@ -22,7 +22,7 @@ const FavoriteButton = ({
       cursor="pointer"
       onClick={onClick}
       icon={icon}
-      className={`p-2 bg-white rounded-full absolute top-10 right-10 text-6lg text-red-800 hover:text-red-600 hover:opacity-100 ${color} transition-all`}
+      className={`p-2 bg-white rounded-full absolute top-4 right-4 text-6lg text-red-800 hover:text-red-600 hover:opacity-100 ${color} transition-all sm:top-10 sm:right-10`}
     />
   );
 };
