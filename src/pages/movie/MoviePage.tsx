@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { baseURL, FullMovieDetails } from "../../common";
 import FavoriteButton from "../../components/FavoriteButton";
 import HomeButton from "../../components/HomeButton";
+
+import { baseURL, FullMovieDetails } from "../../common";
 import { useAsyncAction, useFavorite } from "../../hooks";
 
 const MoviePage = () => {
@@ -42,7 +43,11 @@ const MoviePage = () => {
           handleUnfavorite={onUnFavorite}
         />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <img className="w-full" src={movie.Poster} alt={movie.Title} />
+          <img
+            className="w-2/4 sm:w-full"
+            src={movie.Poster}
+            alt={movie.Title}
+          />
           <div className="px-6 py-4">
             <div className="font-bold text-3xl mb-2 text-gray-800">
               {movie.Title}
