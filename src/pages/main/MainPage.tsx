@@ -28,8 +28,10 @@ const MainPage = () => {
 
   const { urlTitle, urlYear, urlType, urlPage } = useParams();
 
-  const updateFilter: ChangeEventHandler<HTMLInputElement> = (e) =>
+  const updateTitle: ChangeEventHandler<HTMLInputElement> = (e) =>
     setTitleFilter(e.target.value);
+  const updateYear = (y?: string) => setYearFilter(y);
+  const updateType = (t?: string) => setTypeFilter(t);
 
   // Used to construct a url to fetch - could be from state or url params
   const constructUrl = (
@@ -91,8 +93,6 @@ const MainPage = () => {
     pageUrl += `/${yearFilter || '""'}`;
     if (typeFilter) pageUrl += `/${typeFilter}`;
 
-    console.log("pageUrl", pageUrl);
-
     navigate(pageUrl);
     setPage(1);
   };
@@ -101,20 +101,12 @@ const MainPage = () => {
   const updatePage = (page: number) => {
     const url = constructUrl(urlTitle, page, yearFilter, typeFilter);
     getMovies(url, "something went wrong", onFetchMovies);
-    navigate(`/${titleFilter}`);
     setPage(page);
     navigate(`/${urlTitle}/${page}`);
   };
 
-  const incPage = () => {
-    const nextPage = page + 1;
-    updatePage(nextPage);
-  };
-
-  const decPage = () => {
-    const prevPage = page - 1;
-    updatePage(prevPage);
-  };
+  const decPage = () => updatePage(page - 1);
+  const incPage = () => updatePage(page + 1);
 
   return (
     <div>
@@ -130,9 +122,9 @@ const MainPage = () => {
           title={titleFilter}
           year={yearFilter}
           type={typeFilter}
-          onChangeTitle={updateFilter}
-          onChangeYear={(y?: string) => setYearFilter(y)}
-          onChangeType={(t?: string) => setTypeFilter(t)}
+          onChangeTitle={updateTitle}
+          onChangeYear={updateYear}
+          onChangeType={updateType}
         />
       </form>
       <ul className="grid grid-cols-1 gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3 py-6 px-28">
