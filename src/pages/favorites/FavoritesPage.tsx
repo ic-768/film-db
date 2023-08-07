@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import HomeLink from "../../components/HomeLink";
 import { UserContext } from "../../context/user";
 
+/**
+ * Simply maps through user's favorites
+ */
 const FavoritesPage = () => {
   const [user] = useContext(UserContext);
   const navigate = useNavigate();

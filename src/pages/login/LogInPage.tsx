@@ -12,6 +12,9 @@ import { getFavorites } from "../../common";
 import { NotificationContext } from "../../context/notification";
 import { UserContext } from "../../context/user";
 
+/**
+ * Basic login page. We don't do anything with password for now, it's just for show
+ */
 const LogInPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

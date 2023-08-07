@@ -17,6 +17,9 @@ import { BasicMovieDetails, constructUrl } from "../../common";
 import { useAsyncAction } from "../../hooks";
 import { UserContext } from "../../context/user";
 
+/**
+ * The main page - filtering options, viewable movie cards that can be favorited, sign out, or go to favorites
+ */
 const MainPage = () => {
   // TODO group into a single filter object
   const [titleFilter, setTitleFilter] = useState("");
@@ -32,12 +35,6 @@ const MainPage = () => {
   const [user] = useContext(UserContext);
 
   const { urlTitle, urlYear, urlType, urlPage } = useParams();
-
-  const updateTitle: ChangeEventHandler<HTMLInputElement> = (e) =>
-    setTitleFilter(e.target.value);
-  const updateYear = (y?: string) => setYearFilter(y);
-  const updateType = (t?: string) => setTypeFilter(t);
-
   /*Keep filters in sync with url params*/
   useEffect(() => {
     setTitleFilter(urlTitle || "");
@@ -94,6 +91,11 @@ const MainPage = () => {
 
   const decPage = () => updatePage(page - 1);
   const incPage = () => updatePage(page + 1);
+
+  const updateTitle: ChangeEventHandler<HTMLInputElement> = (e) =>
+    setTitleFilter(e.target.value);
+  const updateYear = (y?: string) => setYearFilter(y);
+  const updateType = (t?: string) => setTypeFilter(t);
 
   return (
     <div>

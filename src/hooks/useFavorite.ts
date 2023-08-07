@@ -2,7 +2,9 @@ import { useContext } from "react";
 import { BasicMovieDetails, User } from "../common";
 import { UserContext } from "../context/user";
 
-// Hook to provide all functionality around favorite movies
+/**
+ * Hook to provide all functionality around favorite movies
+ */
 export const useFavorite = (
   title: BasicMovieDetails["Title"],
   year: BasicMovieDetails["imdbID"],
