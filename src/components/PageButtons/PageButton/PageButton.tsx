@@ -14,7 +14,7 @@ const PageButton = ({ orientation = "forward", onClick }: PageButtonProps) => {
   return (
     <div
       onClick={onClick}
-      className={`cursor-pointer p-4 bg-purple-600 z-10 fixed text-6xl bottom-12 mx-auto h-20 w-20 flex justify-center rounded-full flex items-center transition-colors hover:bg-purple-700 mt-auto mb-auto top-0 ${orientationClasses}`}
+      className={`cursor-pointer bg-purple-600 z-10 fixed text-4xl bottom-12 mx-auto h-12 w-12 flex justify-center rounded-full flex items-center transition-colors hover:bg-purple-700 mt-auto mb-auto top-0 ${orientationClasses} sm:text-6xl sm:w-20 sm:h-20`}
     >
       <FontAwesomeIcon icon={faArrowLeft} />
     </div>
